@@ -14,7 +14,7 @@ export default class SearchBooks extends Component {
       query: ''
     }
 
-    updateSearch = (query) => {
+    updateSearchHandler = (query) => {
       BooksAPI.search(query)
        .then( (books)=> {
         this.setState( ()=> ({
@@ -22,8 +22,14 @@ export default class SearchBooks extends Component {
           query: query.trim()
         }) )
        } )
-      
     }
+
+    bookUpdateHandler(book, shelf) {
+      BooksAPI.update(book, shelf)
+       .then( ()=> shelf !== 'none' ? alert(`${book.auther} add successfully`) : null )
+       .catch( ()=> alert('Bad request') );
+    }
+   
 
     render() {
 
@@ -54,16 +60,16 @@ export default class SearchBooks extends Component {
                    type="text" 
                    placeholder="Search by title or author"
                    value={query} 
-                   onChange={ (e) => this.updateSearch(e.target.value) } />
+                   onChange={ (e) => this.updateSearchHandler(e.target.value) } />
 
               </div>
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
               
-              { query.length>0 && books.map( (book)=> 
-                      
-                      <li key={book.id} >
+              {   <li 
+                    key={book.id}
+                     >
                         <div className="book">
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}>
@@ -83,7 +89,7 @@ export default class SearchBooks extends Component {
                       <div className="book-authors">{book.authors}</div>
                         </div>
                       </li>    
-                       )}
+                  }
 
               </ol>
             </div>

@@ -12,20 +12,21 @@ class ListBooks extends Component {
         wantToRead:[],
         read:[],
     }
-  
+    
     componentDidMount() {
       this.getAllBooks()
-}
- getAllBooks =() => {
-    BooksAPI.getAll()
-  .then( (books)=> {
-      this.setState( ()=> ({
-         currentlyReading : books.filter( (book)=> book.shelf === 'currentlyReading' ),
-         wantToRead : books.filter( (book)=> book.shelf === 'wantToRead' ) ,
-         read : books.filter( (book)=> book.shelf === 'read' )  ,
-      }) )
-  } )
-}
+    }
+    
+    getAllBooks =() => {
+        BooksAPI.getAll()
+        .then( (books)=> {
+          this.setState( ()=> ({
+             currentlyReading : books.filter( (book)=> book.shelf === 'currentlyReading' ),
+             wantToRead : books.filter( (book)=> book.shelf === 'wantToRead' ) ,
+             read : books.filter( (book)=> book.shelf === 'read' )  ,
+          }) )
+      } )
+    } 
 
   shelfHandler= (book,shelf) => {
         BooksAPI.update(book, shelf)
