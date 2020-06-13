@@ -21,7 +21,7 @@ class ListBooks extends Component {
        } )
     }
 
-    updateShelf= (book, shelf) => {
+  shelfHandler= (book,shelf) => {
         BooksAPI.update(book, shelf)
           .then( (books) => {
               this.setState( (currentState)=> ({
@@ -58,7 +58,7 @@ class ListBooks extends Component {
                       
                       <li  
                          key={book.id}  
-                         updateShelf={this.updateShelf}
+                         
                          >
                         <div className="book">
                           <div className="book-top">
@@ -66,7 +66,7 @@ class ListBooks extends Component {
                                 
                             </div>
                             <div className="book-shelf-changer">
-                              <select onChange={ (e)=> this.updateShelf(book, e.target.value) } value={book.shelf}>
+                              <select onChange={ (e)=> this.shelfHandler(book, e.target.value) } value={book.shelf}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
@@ -94,14 +94,16 @@ class ListBooks extends Component {
 
                     {wantToRead.map( (book)=> 
                       
-                      <li key={book.id}>
+                      <li 
+                        key={book.id}
+                       >
                         <div className="book">
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}>
                                 
                             </div>
                             <div className="book-shelf-changer">
-                              <select>
+                              <select onChange={ (e)=> this.shelfHandler(book, e.target.value) } value={book.shelf}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
@@ -127,14 +129,16 @@ class ListBooks extends Component {
                      
                 {read.map( (book)=> 
                       
-                      <li key={book.id}>
+                      <li 
+                        key={book.id} 
+                       >
                         <div className="book">
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}>
                                 
                             </div>
                             <div className="book-shelf-changer">
-                              <select>
+                              <select onChange={ (e)=> this.shelfHandler(book, e.target.value) } value={book.shelf}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
