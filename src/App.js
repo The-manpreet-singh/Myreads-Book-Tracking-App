@@ -7,7 +7,8 @@ import ListBooks from './Components/ListBooks'
 import SearchBooks from './Components/SearchBooks'
 
 import {Route} from 'react-router-dom'
-class BooksApp extends React.Component {
+
+function BooksApp() {
   // state = {
   //   /**
   //    * TODO: Instead of using this state variable to keep track of which page
@@ -18,10 +19,6 @@ class BooksApp extends React.Component {
   //   showSearchPage: false
   // }
 
-  
-
-  render() {
-    
     return (
       <div className="app">
         <Route exact path='/' component={ListBooks} />
@@ -29,6 +26,6 @@ class BooksApp extends React.Component {
       </div>
     )
   }
-}
+
 
 export default BooksApp
