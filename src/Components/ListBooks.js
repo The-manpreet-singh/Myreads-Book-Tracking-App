@@ -21,10 +21,22 @@ class ListBooks extends Component {
        } )
     }
 
+    updateShelf= (book, shelf) => {
+        BooksAPI.update(book, shelf)
+          .then( (books) => {
+              this.setState( (currentState)=> ({
+                  books: currentState.books
+              }) )
+          } )
+    }
+
     render() {
         
         const {currentlyReading, wantToRead, read} = this.state;
         console.log(currentlyReading)
+        console.log(wantToRead)
+        console.log(read)
+
   return (
             
         <div className="list-books">
@@ -44,14 +56,17 @@ class ListBooks extends Component {
 
                       {currentlyReading.map( (book)=> 
                       
-                      <li key={book.id}>
+                      <li  
+                         key={book.id}  
+                         updateShelf={this.updateShelf}
+                         >
                         <div className="book">
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}>
                                 
                             </div>
                             <div className="book-shelf-changer">
-                              <select>
+                              <select onChange={ (e)=> this.updateShelf(book, e.target.value) } value={book.shelf}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
@@ -138,9 +153,10 @@ class ListBooks extends Component {
                 </div>
             </div>
 
-              </div>
+        </div>
 
-            </div>
+     </div>
+
             <div className="open-search">
               <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
             </div>
