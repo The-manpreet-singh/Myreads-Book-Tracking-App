@@ -14,31 +14,32 @@ class ListBooks extends Component {
     }
   
     componentDidMount() {
-      BooksAPI.getAll()
-       .then( (books)=> {
-           this.setState( ()=> ({
-              currentlyReading : books.filter( (book)=> book.shelf === 'currentlyReading' ),
-              wantToRead : books.filter( (book)=> book.shelf === 'wantToRead' ) ,
-              read : books.filter( (book)=> book.shelf === 'read' )  ,
-           }) )
-       } )
-    }
+      this.getAllBooks()
+}
+ getAllBooks =() => {
+    BooksAPI.getAll()
+  .then( (books)=> {
+      this.setState( ()=> ({
+         currentlyReading : books.filter( (book)=> book.shelf === 'currentlyReading' ),
+         wantToRead : books.filter( (book)=> book.shelf === 'wantToRead' ) ,
+         read : books.filter( (book)=> book.shelf === 'read' )  ,
+      }) )
+  } )
+}
 
   shelfHandler= (book,shelf) => {
         BooksAPI.update(book, shelf)
           .then( () => {
-              this.setState( (currentState)=> ({
-                  books: currentState.books
-              }) )
+              this.getAllBooks()
           } )
     }
 
     render() {
         
         const {currentlyReading, wantToRead, read} = this.state;
-        console.log(currentlyReading)
-        console.log(wantToRead)
-        console.log(read)
+        //console.log(currentlyReading)
+        //console.log(wantToRead)
+        //console.log(read)
 
   return (
             
