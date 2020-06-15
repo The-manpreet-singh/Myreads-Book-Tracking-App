@@ -53,25 +53,15 @@ export default class SearchBooks extends Component {
 		return Books;
 	};
 
-	// bookUpdateHandler=(book, shelf)=> {
-	// 	BooksAPI.update(book, shelf)
-	// 		.then(() => (shelf !== 'none' ? alert(`${book.authors} add successfully`) : null))
-	// 		.catch(() => alert('Bad request'));
-	// }
-
 	searchBooksList = () => {
 		const { Books, query } = this.state;
 		if (query.length > 0) {
-			return Books.error ? <div> No Books Available </div> : Books.map((book) => <ListBooksView key={book.id} book={book} clickShelfHandler={this.props.onChange} />);
+			return Books.error ? <div> No Books Available </div> : Books.map((book) => <ListBooksView key={book.id} book={book} clickShelfHandler={this.props.onChange}  />);
 		} else {
 			return null;
 		}
 	};
-
-	// componentDidUpdate() {
-	// 	this.searchBooksList();
-	//   }
-
+   
 	render() {
 		return (
 			<div className='search-books'>
