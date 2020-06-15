@@ -20,8 +20,6 @@ export default class SearchBooks extends Component {
 		this.updateSearchHandler(query);
 	};
 
-	
-
 	updateSearchHandler = (query) => {
 		if (query.length !== 0) {
 			BooksAPI.search(query).then((books) => {
@@ -42,8 +40,8 @@ export default class SearchBooks extends Component {
 	};
 	shelfChangeHandler = (books) => {
 		let mybooks = this.props.mybooks;
-		for(let book of books) {
-			book.shelf= "none";
+		for (let book of books) {
+			book.shelf = 'none';
 		}
 		this.state.books.forEach((book) => {
 			mybooks.forEach((myBook) => {

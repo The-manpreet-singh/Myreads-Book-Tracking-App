@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function ListBooksView(props) {
-    const img = props.book.imageLinks ? props.book.imageLinks.thumbnail : null;
+	const img = props.book.imageLinks ? props.book.imageLinks.thumbnail : null;
 	return (
 		<div>
 			<li>
