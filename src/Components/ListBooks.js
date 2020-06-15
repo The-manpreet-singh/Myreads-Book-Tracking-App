@@ -36,11 +36,14 @@ class ListBooks extends Component {
 	booksMapHandler = (books, head) => {
 		return (
 			<div className='bookshelf'>
-				<h2 className='bookshelf-title'>Currently Reading</h2>
+				<h2 className='bookshelf-title'>{head}</h2>
 				<div className='bookshelf-books'>
 					<ol className='books-grid'>
 						{books.map((book) => (
-							<ListBooksView key={book.id} book={book} />
+              <ListBooksView 
+                 key={book.id}
+                  book={book}
+                  clickShelfHandler={this.shelfHandler} />
 						))}
 					</ol>
 				</div>
@@ -50,7 +53,7 @@ class ListBooks extends Component {
 
 	render() {
 		const { currentlyReading, wantToRead, read } = this.state;
-		//console.log(currentlyReading)
+		console.log(currentlyReading)
 		//console.log(wantToRead)
 		//console.log(read)
 
