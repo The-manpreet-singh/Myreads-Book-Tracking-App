@@ -12,7 +12,7 @@ export default class SearchBooks extends Component {
 		query: '',
   };
   
-  serchHander= (e) => {
+  searchHander= (e) => {
     let query= e.target.value
     this.setState( ()=> {
       return {query: query}
@@ -67,7 +67,7 @@ export default class SearchBooks extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-						<input type='text' placeholder='Search books by title or author' value={this.state.query} onChange={this.serchHander} />
+						<input type='text' placeholder='Search books by title or author' value={this.state.query} onChange={this.searchHander} />
 					</div>
 				</div>
 				<div className='search-books-results'>
