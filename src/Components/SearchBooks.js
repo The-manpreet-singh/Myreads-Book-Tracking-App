@@ -20,11 +20,22 @@ export default class SearchBooks extends Component {
     }
 
     updateSearchHandler = (query) => {
-      BooksAPI.search(query)
-       .then( (books)=> (
-         books ? this.setState({books}) : null
-        ) );
-       this.setState({query:query})
+      if(query.length !== 0 ) {
+        BooksAPI.search(query)
+        .then( (books)=> {
+          if( books.length >0) {
+               this.setState({books:books}) 
+            }
+        })
+        this.setState({query:query})
+      } 
+      else {
+        this.setState( (currentState) => ({
+               books: currentState.books,
+               query:currentState.query
+        }) )
+      }
+     
     }
 
     bookUpdateHandler(book, shelf) {
@@ -36,7 +47,7 @@ export default class SearchBooks extends Component {
 
   searchBooksList=()=> {
     const { books, query } = this.state
-    if(query) {
+    if(query.length > 0) {
       return books.error ? 
             <div> No Books Available </div>
             : books.map( (book) => (
@@ -44,6 +55,8 @@ export default class SearchBooks extends Component {
                ) 
               )
             
+    } else {
+      return null
     }
   }
 
