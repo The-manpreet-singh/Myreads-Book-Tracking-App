@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
-//import PropTypes from 'prop-types';
+
+import PropTypes from 'prop-types';
+
 import {Link} from 'react-router-dom'
 
 import * as BooksAPI from './../BooksAPI';
+
+import ListBooksView from './ListBooksView';
+
 export default class SearchBooks extends Component {
 
   // static propTypes = {
@@ -31,32 +36,13 @@ export default class SearchBooks extends Component {
     }
    
 
-  searchBooksList() {
+  searchBooksList=()=> {
     const { books, query } = this.state
     if(query) {
       return books.error ? 
             <div> No Books Available </div>
             : books.map( (book) => (
-                 <li key={book.id} >
-                      <div className="book">
-                        <div className="book-top">
-                          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}>
-                              
-                          </div>
-                          <div className="book-shelf-changer">
-                            <select onChange={ (e)=> this.bookUpdateHandler(book, e.target.value) } value={book.shelf}>
-                              <option value="move">Move to...</option>
-                              <option value="currentlyReading">Currently Reading</option>
-                              <option value="wantToRead">Want to Read</option>
-                              <option value="read">Read</option>
-                              <option value="none">None</option>
-                            </select>
-                          </div>
-                        </div>
-                    <div className="book-title">{book.title}</div>
-                    <div className="book-authors">{book.authors}</div>
-                      </div>
-                    </li>   
+                 <ListBooksView key={book.id} book={book} clickShelfHandler={this.bookUpdateHandler} />   
                ) 
               )
             
@@ -83,7 +69,7 @@ export default class SearchBooks extends Component {
                 */}
                 <input 
                    type="text" 
-                   placeholder="Search by title or author"
+                   placeholder="Search books by title or author"
                    value={this.state.query} 
                    onChange={ (e) => this.updateSearchHandler(e.target.value) } />
 
