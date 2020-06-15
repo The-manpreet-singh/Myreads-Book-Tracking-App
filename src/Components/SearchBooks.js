@@ -10,24 +10,21 @@ export default class SearchBooks extends Component {
 	state = {
 		books: [],
 		query: '',
-  };
-  
-  searchHander= (e) => {
-    let query= e.target.value
-    this.setState( ()=> {
-      return {query: query}
-    } )
-    this.updateSearchHandler(query)
-  }
+	};
+
+	searchHander = (e) => {
+		let query = e.target.value;
+		this.setState(() => {
+			return { query: query };
+		});
+		this.updateSearchHandler(query);
+	};
 
 	updateSearchHandler = (query) => {
 		if (query.length !== 0) {
-			BooksAPI.search(query).then((books) => (
-					this.setState({ books: books })
-      ) )
-      this.setState({ query: query });
-			}
-		 else {
+			BooksAPI.search(query).then((books) => this.setState({ books: books }));
+			this.setState({ query: query });
+		} else {
 			this.setState((currentState) => ({
 				books: currentState.books,
 				query: currentState.query,
