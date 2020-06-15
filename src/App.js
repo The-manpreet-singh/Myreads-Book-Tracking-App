@@ -35,16 +35,19 @@ class BooksApp extends Component {
 	};
 
 	shelfHandler = (book, shelf) => {
-		BooksAPI.update(book, shelf).then(() => {
+		BooksAPI.update(book, shelf)
+		.then(() => {
 			this.getAllBooks();
-		});
+		})
+		.then(() => (shelf !== 'none' ? alert(`${book.authors} add successfully`) : null))
+			.catch(() => alert('Bad request'));
 	};
 
     render () {
 	return (
 		<div className='app'>
 			<Route exact path='/' render={ ()=> <ListBooks books={this.state.books} onChange={this.shelfHandler} /> } />
-			<Route path='/search' component={SearchBooks} />
+			<Route path='/search' render={ ()=><SearchBooks mybooks={this.state.books} onChange={this.shelfHandler} /> } />
 		</div>
 	);
 }

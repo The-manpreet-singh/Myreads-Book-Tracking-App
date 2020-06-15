@@ -20,9 +20,18 @@ export default class SearchBooks extends Component {
 		this.updateSearchHandler(query);
 	};
 
+	
+
 	updateSearchHandler = (query) => {
 		if (query.length !== 0) {
-			BooksAPI.search(query).then((books) => this.setState({ books: books }));
+			BooksAPI.search(query).then((books) => {
+				if (books.length > 0) {
+					books = this.shelfChangeHandler(books);
+					this.setState(() => ({
+						books: books,
+					}));
+				}
+			});
 			this.setState({ query: query });
 		} else {
 			this.setState((currentState) => ({
@@ -31,21 +40,39 @@ export default class SearchBooks extends Component {
 			}));
 		}
 	};
+	shelfChangeHandler = (books) => {
+		let mybooks = this.props.mybooks;
+		for(let book of books) {
+			book.shelf= "none";
+		}
+		this.state.books.forEach((book) => {
+			mybooks.forEach((myBook) => {
+				if (myBook.id === book.id) {
+					book.shelf = myBook.shelf;
+				}
+			});
+		});
+		return books;
+	};
 
-	bookUpdateHandler(book, shelf) {
-		BooksAPI.update(book, shelf)
-			.then(() => (shelf !== 'none' ? alert(`${book.authors} add successfully`) : null))
-			.catch(() => alert('Bad request'));
-	}
+	// bookUpdateHandler=(book, shelf)=> {
+	// 	BooksAPI.update(book, shelf)
+	// 		.then(() => (shelf !== 'none' ? alert(`${book.authors} add successfully`) : null))
+	// 		.catch(() => alert('Bad request'));
+	// }
 
 	searchBooksList = () => {
 		const { books, query } = this.state;
 		if (query.length > 0) {
-			return books.error ? <div> No Books Available </div> : books.map((book) => <ListBooksView key={book.id} book={book} clickShelfHandler={this.bookUpdateHandler} />);
+			return books.error ? <div> No Books Available </div> : books.map((book) => <ListBooksView key={book.id} book={book} clickShelfHandler={this.props.onChange} />);
 		} else {
 			return null;
 		}
 	};
+
+	// componentDidUpdate() {
+	// 	this.searchBooksList();
+	//   }
 
 	render() {
 		return (
