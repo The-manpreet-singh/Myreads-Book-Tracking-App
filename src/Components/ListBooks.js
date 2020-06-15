@@ -8,9 +8,7 @@ import ListBooksView from './ListBooksView';
 
 class ListBooks extends Component {
 	state = {
-		currentlyReading: [],
-		wantToRead: [],
-		read: [],
+		books: [],
 	};
 
 	componentDidMount() {
@@ -20,9 +18,7 @@ class ListBooks extends Component {
 	getAllBooks = () => {
 		BooksAPI.getAll().then((books) => {
 			this.setState(() => ({
-				currentlyReading: books.filter((book) => book.shelf === 'currentlyReading'),
-				wantToRead: books.filter((book) => book.shelf === 'wantToRead'),
-				read: books.filter((book) => book.shelf === 'read'),
+				books: books,
 			}));
 		});
 	};
@@ -40,10 +36,7 @@ class ListBooks extends Component {
 				<div className='bookshelf-books'>
 					<ol className='books-grid'>
 						{books.map((book) => (
-              <ListBooksView 
-                 key={book.id}
-                  book={book}
-                  clickShelfHandler={this.shelfHandler} />
+							<ListBooksView key={book.id} book={book} clickShelfHandler={this.shelfHandler} />
 						))}
 					</ol>
 				</div>
@@ -52,10 +45,12 @@ class ListBooks extends Component {
 	};
 
 	render() {
-		const { currentlyReading, wantToRead, read } = this.state;
-		console.log(currentlyReading)
-		//console.log(wantToRead)
-		//console.log(read)
+		const { books } = this.state;
+		//console.log(books);
+
+		const currentBookFilter = books.filter((book) => book.shelf === 'currentlyReading');
+		const wantReadFilter = books.filter((book) => book.shelf === 'wantToRead');
+		const readFilter = books.filter((book) => book.shelf === 'read');
 
 		return (
 			<div className='list-books'>
@@ -64,9 +59,9 @@ class ListBooks extends Component {
 				</div>
 				<div className='list-books-content'>
 					<div>
-						{this.booksMapHandler(currentlyReading, 'Currently Reading Books')}
-						{this.booksMapHandler(wantToRead, 'Want to Read Books')}
-						{this.booksMapHandler(read, 'Read Books')}
+						{this.booksMapHandler(currentBookFilter, 'Currently Reading Books')}
+						{this.booksMapHandler(wantReadFilter, 'Want to Read Books')}
+						{this.booksMapHandler(readFilter, 'Read Books')}
 					</div>
 				</div>
 
