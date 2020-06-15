@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import * as BooksAPI from './../BooksAPI';
-
 import { Link } from 'react-router-dom';
 
 import ListBooksView from './ListBooksView';
@@ -10,29 +8,6 @@ import ListBooksView from './ListBooksView';
 
 class ListBooks extends Component {
 
-	state = {
-		books: [],
-  };
-  
-
-	componentDidMount() {
-		this.getAllBooks();
-	}
-
-	getAllBooks = () => {
-		BooksAPI.getAll().then((books) => {
-			this.setState(() => ({
-				books: books,
-			}));
-		});
-	};
-
-	shelfHandler = (book, shelf) => {
-		BooksAPI.update(book, shelf).then(() => {
-			this.getAllBooks();
-		});
-	};
-
 	booksMapHandler = (books, head) => {
 		return (
 			<div className='bookshelf'>
@@ -40,7 +15,7 @@ class ListBooks extends Component {
 				<div className='bookshelf-books'>
 					<ol className='books-grid'>
 						{books.map((book) => (
-							<ListBooksView key={book.id} book={book} clickShelfHandler={this.shelfHandler} />
+							<ListBooksView key={book.id} book={book} clickShelfHandler={this.props.onChange} />
 						))}
 					</ol>
 				</div>
@@ -49,7 +24,7 @@ class ListBooks extends Component {
 	};
 
 	render() {
-		const { books } = this.state;
+		const { books } = this.props;
 		//console.log(books);
 
 		const currentBookFilter = books.filter((book) => book.shelf === 'currentlyReading');
