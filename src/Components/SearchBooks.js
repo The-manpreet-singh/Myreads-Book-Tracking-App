@@ -21,12 +21,10 @@ export default class SearchBooks extends Component {
 
     updateSearchHandler = (query) => {
       BooksAPI.search(query)
-       .then( (books)=> {
-        this.setState( ()=> ({
-          books: books,
-          query: query
-        }) )
-       } )
+       .then( (books)=> (
+         books ? this.setState({books}) : null
+        ) );
+       this.setState({query:query})
     }
 
     bookUpdateHandler(book, shelf) {
