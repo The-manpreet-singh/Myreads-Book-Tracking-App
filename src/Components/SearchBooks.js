@@ -19,7 +19,7 @@ export default class SearchBooks extends Component {
        .then( (books)=> {
         this.setState( ()=> ({
           books: books,
-          query: query.trim()
+          query: query
         }) )
        } )
     }
