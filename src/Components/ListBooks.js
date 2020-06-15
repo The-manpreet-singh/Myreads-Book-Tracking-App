@@ -4,10 +4,7 @@ import { Link } from 'react-router-dom';
 
 import ListBooksView from './ListBooksView';
 
-
-
 class ListBooks extends Component {
-
 	booksMapHandler = (books, head) => {
 		return (
 			<div className='bookshelf'>
