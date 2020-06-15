@@ -8,7 +8,7 @@ import ListBooksView from './ListBooksView';
 
 export default class SearchBooks extends Component {
 	state = {
-		books: [],
+		Books: [],
 		query: '',
 	};
 
@@ -22,35 +22,35 @@ export default class SearchBooks extends Component {
 
 	updateSearchHandler = (query) => {
 		if (query.length !== 0) {
-			BooksAPI.search(query).then((books) => {
-				if (books.length > 0) {
-					books = this.shelfChangeHandler(books);
+			BooksAPI.search(query).then((Books) => {
+				if (Books.length > 0) {
+					Books = this.shelfChangeHandler(Books);
 					this.setState(() => ({
-						books: books,
+						Books: Books,
 					}));
 				}
 			});
 			this.setState({ query: query });
 		} else {
 			this.setState((currentState) => ({
-				books: currentState.books,
+				Books: currentState.Books,
 				query: currentState.query,
 			}));
 		}
 	};
-	shelfChangeHandler = (books) => {
+	shelfChangeHandler = (Books) => {
 		let mybooks = this.props.mybooks;
-		for (let book of books) {
-			book.shelf = 'none';
-		}
-		this.state.books.forEach((book) => {
+		// for (let book of books) {
+		// 	book.shelf = 'none';
+		// }
+		this.state.Books.forEach((book) => {
 			mybooks.forEach((myBook) => {
 				if (myBook.id === book.id) {
 					book.shelf = myBook.shelf;
 				}
 			});
 		});
-		return books;
+		return Books;
 	};
 
 	// bookUpdateHandler=(book, shelf)=> {
@@ -60,9 +60,9 @@ export default class SearchBooks extends Component {
 	// }
 
 	searchBooksList = () => {
-		const { books, query } = this.state;
+		const { Books, query } = this.state;
 		if (query.length > 0) {
-			return books.error ? <div> No Books Available </div> : books.map((book) => <ListBooksView key={book.id} book={book} clickShelfHandler={this.props.onChange} />);
+			return Books.error ? <div> No Books Available </div> : Books.map((book) => <ListBooksView key={book.id} book={book} clickShelfHandler={this.props.onChange} />);
 		} else {
 			return null;
 		}
