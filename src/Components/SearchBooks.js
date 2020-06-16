@@ -9,7 +9,6 @@ import ListBooksView from './ListBooksView';
 import PropTypes from 'prop-types';
 
 export default class SearchBooks extends Component {
-
 	// static propTypes = {
 	// 	Books: PropTypes.array.isRequired,
 	// 	onChange: PropTypes.func.isRequired
@@ -18,7 +17,7 @@ export default class SearchBooks extends Component {
 	state = {
 		Books: [],
 		query: '',
-		searchError: false
+		searchError: false,
 	};
 
 	searchHander = (e) => {
@@ -38,13 +37,12 @@ export default class SearchBooks extends Component {
 					Books = this.shelfChangeHandler(Books);
 					this.setState(() => ({
 						Books: Books,
-						searchError: false
+						searchError: false,
 					}));
-				}
-				else {
+				} else {
 					this.setState(() => ({
 						Books: [],
-						searchError: true
+						searchError: true,
 					}));
 				}
 			});
@@ -52,16 +50,18 @@ export default class SearchBooks extends Component {
 		} else {
 			this.setState((currentState) => ({
 				Books: currentState.Books,
-				searchError: false
+				searchError: false,
 			}));
 		}
 	};
 	shelfChangeHandler = (Books) => {
 		let mybooks = this.props.mybooks;
-		// for (let book of books) {
-		// 	book.shelf = 'none';
-		// }
-		this.state.Books.forEach((book) => {
+		// if book is in current list, set current shelf to book.shelf
+		for (let book of Books) {
+			book.shelf = 'none';
+		}
+		
+		Books.forEach((book) => {
 			mybooks.forEach((myBook) => {
 				if (myBook.id === book.id) {
 					book.shelf = myBook.shelf;
@@ -70,7 +70,7 @@ export default class SearchBooks extends Component {
 		});
 		return Books;
 	};
-	
+
 	render() {
 		const { Books, query, searchError } = this.state;
 		return (
@@ -93,16 +93,16 @@ export default class SearchBooks extends Component {
 					</div>
 				</div>
 				<div className='search-books-results'>
-				{Books.length > 0 && (
-            <div>
-              <ol className="books-grid">
-                { Books.map((book) => <ListBooksView key={book.id} book={book} clickShelfHandler={this.props.onChange}/> ) }
-              </ol>
-            </div>
-          )}
-          {searchError && (
-            <div> No Books Available </div>
-          )}
+					{Books.length > 0 && (
+						<div>
+							<ol className='books-grid'>
+								{Books.map((book) => (
+									<ListBooksView key={book.id} book={book} clickShelfHandler={this.props.onChange} />
+								))}
+							</ol>
+						</div>
+					)}
+					{searchError && <div> No Books Available </div>}
 				</div>
 			</div>
 		);
