@@ -9,10 +9,10 @@ import ListBooksView from './ListBooksView';
 import PropTypes from 'prop-types';
 
 export default class SearchBooks extends Component {
-	// static propTypes = {
-	// 	Books: PropTypes.array.isRequired,
-	// 	onChange: PropTypes.func.isRequired
-	//   };
+	static propTypes = {
+		mybooks: PropTypes.array.isRequired,
+		onChange: PropTypes.func.isRequired,
+	};
 
 	state = {
 		Books: [],
@@ -26,8 +26,6 @@ export default class SearchBooks extends Component {
 			return { query: query };
 		});
 		this.updateSearchHandler(query);
-		// BooksAPI.search(query).then(Books => Books ? this.setState({ Books }) : []);
-		// this.setState({ query });
 	};
 
 	updateSearchHandler = (query) => {
@@ -72,7 +70,7 @@ export default class SearchBooks extends Component {
 	};
 
 	render() {
-		const { Books, query, searchError } = this.state;
+		const { Books, searchError } = this.state;
 		return (
 			<div className='search-books'>
 				<div className='search-books-bar'>
