@@ -60,7 +60,7 @@ export default class SearchBooks extends Component {
 		for (let book of Books) {
 			book.shelf = 'none';
 		}
-		
+
 		Books.forEach((book) => {
 			mybooks.forEach((myBook) => {
 				if (myBook.id === book.id) {
