@@ -75,7 +75,7 @@ export default class SearchBooks extends Component {
 						Close
 					</Link>
 					<div className='search-books-input-wrapper'>
-						<input type='text' placeholder='Search books by title or author' value={this.state.query} onChange={this.searchHander} />
+						<input autoFocus type='text' placeholder='Search books by title or author' value={this.state.query} onChange={this.searchHander} />
 					</div>
 				</div>
 				<div className='search-books-results'>
