@@ -4,7 +4,14 @@ import { Link } from 'react-router-dom';
 
 import ListBooksView from './ListBooksView';
 
+import { PropTypes } from 'prop-types';
+
 class ListBooks extends Component {
+   
+	static propsTypes = {
+		books: PropTypes.array.isRequired
+	}
+
 	booksMapHandler = (books, head) => {
 		return (
 			<div className='bookshelf'>
