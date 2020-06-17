@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 
+import PropTypes from 'prop-types';
+
 export default class ListBooksView extends Component {
+	static propTypes = {
+		clickShelfHandler: PropTypes.func.isRequired,
+	};
+
 	shelfUpdateHandler = (e) => {
 		this.props.clickShelfHandler(this.props.book, e.target.value);
 	};

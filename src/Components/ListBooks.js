@@ -7,10 +7,10 @@ import ListBooksView from './ListBooksView';
 import { PropTypes } from 'prop-types';
 
 class ListBooks extends Component {
-   
 	static propsTypes = {
-		books: PropTypes.array.isRequired
-	}
+		books: PropTypes.array.isRequired,
+		onChange: PropTypes.func.isRequired,
+	};
 
 	booksMapHandler = (books, head) => {
 		return (
