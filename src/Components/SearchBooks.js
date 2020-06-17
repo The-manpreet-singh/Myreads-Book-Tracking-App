@@ -44,7 +44,6 @@ export default class SearchBooks extends Component {
 					}));
 				}
 			});
-			//this.setState({ query: query });
 		} else {
 			this.setState((currentState) => ({
 				Books: currentState.Books,
@@ -55,11 +54,9 @@ export default class SearchBooks extends Component {
 	shelfChangeHandler = (Books) => {
 		let mybooks = this.props.mybooks;
 		// if book is in current list, set current shelf to book.shelf
-		for (let book of Books) {
-			book.shelf = 'none';
-		}
 
 		Books.forEach((book) => {
+			book.shelf = 'none';
 			mybooks.forEach((myBook) => {
 				if (myBook.id === book.id) {
 					book.shelf = myBook.shelf;
@@ -74,12 +71,10 @@ export default class SearchBooks extends Component {
 		return (
 			<div className='search-books'>
 				<div className='search-books-bar'>
-				
 					<Link to='/' className='close-search'>
 						Close
 					</Link>
 					<div className='search-books-input-wrapper'>
-					
 						<input type='text' placeholder='Search books by title or author' value={this.state.query} onChange={this.searchHander} />
 					</div>
 				</div>
