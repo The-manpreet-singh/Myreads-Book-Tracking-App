@@ -27,19 +27,19 @@ class BooksApp extends Component {
 
 	getAllBooks = () => {
 		BooksAPI.getAll().then((books) => {
-			this.setState(() => ({
-				books: books,
-			}));
+			this.setState({ books });
 		});
 	};
 
 	shelfHandler = (book, shelf) => {
-		BooksAPI.update(book, shelf)
-			.then(() => {
-				this.getAllBooks();
-			})
-			.then(() => (shelf !== 'none' ? alert(`${book.authors} add successfully`) : null))
-			.catch(() => alert('Bad request'));
+		BooksAPI.update(book, shelf).then(() => {
+			book.shelf = shelf;
+			this.setState((currentState) => ({
+				books: currentState.books.filter((c) => c.id !== book.id).concat(book),
+			}));
+		});
+		// .then(() => (shelf !== 'none' ? alert(`${book.authors} add successfully`) : null))
+		// .catch(() => alert('Bad request'));
 	};
 
 	render() {
