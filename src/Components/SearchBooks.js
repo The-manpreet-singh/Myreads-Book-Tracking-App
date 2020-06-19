@@ -12,6 +12,7 @@ export default class SearchBooks extends Component {
 	static propTypes = {
 		mybooks: PropTypes.array.isRequired,
 		onChange: PropTypes.func.isRequired,
+		
 	};
 
 	state = {
