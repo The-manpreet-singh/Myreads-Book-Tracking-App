@@ -1,4 +1,4 @@
-# MyReads Books Tracking App Project
+# Udacity-MyReads Books Tracking App Project
 
 ## live url : https://books-tracking-by-manpreet.netlify.app/
 
