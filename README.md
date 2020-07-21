@@ -1,8 +1,8 @@
 # Udacity-MyReads Books Tracking App Project
 
-## live url : https://books-tracking-by-manpreet.netlify.app/
+## Live url : https://books-tracking-by-manpreet.netlify.app/
 
-## project rubric- https://review.udacity.com/#!/rubrics/918/view
+## Project rubric- https://review.udacity.com/#!/rubrics/918/view
 
 ## About project
 
